@@ -3,22 +3,21 @@ import ipdb
 
 class CashRegister:
   
+  prices = []
+
   def __init__(self, discount = 0):
     self.discount = discount
     self.total = 0
     self.items = []
     
-    
   def add_item(self, title, price, quantity=1):
     updated_price = price * quantity
     self.total = updated_price + self.total
-    number_of = quantity * title
-    each_title = [each for each in number_of]
-    ipdb.set_trace()
-    return self.items.append(title * quantity)
+    number_of_titles = [self.items.append(title) for n in range(quantity)]
+    CashRegister.prices.append(updated_price)
+    return CashRegister.prices
     
-    # return CashRegister.items
-   
+    
   def apply_discount(self):
     local_discount = (self.discount/100) * self.total
     self.total -= local_discount
@@ -27,7 +26,5 @@ class CashRegister:
     else:
       print(f"After the discount, the total comes to ${int(self.total)}.")
 
-new_register = CashRegister()
-new_register.add_item("eggs", 1.99, 2)
-
-# ipdb.set_trace()
+  def void_last_transaction(self):
+    self.total -= CashRegister.prices[-1]
